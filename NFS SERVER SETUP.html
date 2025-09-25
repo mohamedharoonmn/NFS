@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 25.8.1.1 (Linux)"/>
+	<meta name="created" content="2025-09-25T15:16:45.667881083"/>
+	<meta name="changed" content="2025-09-25T16:55:46.777729162"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<ol><li><p style="line-height: 100%; margin-bottom: 0in">##<font size="4" style="font-size: 15pt">#
+	</font><font face="Caladea, serif"><font size="4" style="font-size: 15pt"><u><b>Manual
+	NFS SETUP</b></u></font></font></p></li>
+</ol>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">####
+<b>Description</b></font></font></p>
+<p style="line-height: 100%; margin-bottom: 0in"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Configuring
+NFS SERVER v4 for file sharing.(RED HAT 10 )</font></font></p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">####
+<b>Prerequisites</b></font></font></p>
+<p style="line-height: 100%; margin-bottom: 0in"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Server
+and client architecture</font></font></p>
+<p style="line-height: 100%; margin-bottom: 0in"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Installed
+required packages</font></font></p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">####
+<b>Procedure</b></font></font></p>
+<p style="line-height: 100%; margin-bottom: 0in"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">----<u><b>SERVER
+SIDE PROCEDURE/SETUP</b></u></font></font></p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Update
+the package list --- dnf update (sudo)</font></font></p>
+<p style="margin-bottom: 0in; line-height: 100%"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Installing
+packages required---- dnf install nfs-utils -y</font></font></p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Checking
+the version of the server -- </font></font>
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Start
+the server and check the status--- systemctl start nfs-server</font></font></p>
+<p style="line-height: 100%; margin-bottom: 0in">                    
+                                                  <font face="Caladea, serif"><font size="4" style="font-size: 15pt">---
+systemctl status nfs-server</font></font></p>
+<p style="line-height: 100%; margin-bottom: 0in">                    
+    <font face="Caladea, serif"><font size="4" style="font-size: 15pt">			
+               ----systemctl enable –now nfs-server</font></font></p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Configure
+and verify the exports file and insert the contents</font></font></p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">and
+files that are to be exported to the client using a drop-in file   - 
+                           </font></font>
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">-----
+ <b>vim /etc/exports.</b><b>d/shared_directory.exports</b></font></font></p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">-----Inside
+the exports file specify -----</font></font></p>
+<p style="margin-bottom: 0in; line-height: 100%"><br/>
+
+</p>
+<ol type="I">
+	<li><p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Files
+	or directory to be shared</font></font></p></li>
+	<li><p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">The
+	target client ( ip address)</font></font></p></li>
+	<li><p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Permissions
+	for the client</font></font></p></li>
+</ol>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Initialize
+the export services --- exportfs -r</font></font></p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Create
+the directory that is specified in the previous step –--mkdir -pv
+/shared_directory_name</font></font></p>
+<p style="margin-bottom: 0in; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Add
+files to be shared over nfs – cp ~/Document /shared_directory_name</font></font></p>
+<p style="margin-bottom: 0in; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">Allow
+firewall rules -- </font></font>
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">firewall-cmd
+–add-service nfs </font></font>
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt">firewall-cmd
+–reload</font></font></p>
+<p style="margin-bottom: 0in; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><font face="Caladea, serif"><font size="4" style="font-size: 15pt"><u><b>CLIENT-SIDE
+CONFIGURATION</b></u></font></font></p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<font face="Caladea, serif"><font size="4" style="font-size: 15pt">Install
+the nfs package ---- dnf  install nfs-utils</font></font></p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<font face="Caladea, serif"><font size="4" style="font-size: 15pt">Create
+a mountpoint  ----- mkdir -pv /mnt/directoryname</font></font></p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<font face="Caladea, serif"><font size="4" style="font-size: 15pt">mount
+the directory into the ------ vim   /etc/fstab</font></font></p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+                                                      
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<font face="Caladea, serif"><font size="4" style="font-size: 15pt">Start
+the nfs service --- systemctl start </font></font>
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<font face="Caladea, serif"><font size="4" style="font-size: 15pt">Confirm
+if you can access the server contents that are mounted ---- cd
+/mnt/directoryname</font></font></p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+ 
+</p>
+<p style="font-weight: normal; margin-bottom: 0in; line-height: 100%; text-decoration: none">
+<br/>
+
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0in; line-height: 100%">                
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0in; line-height: 100%"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"> 
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+</body>
+</html>
