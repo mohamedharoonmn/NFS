@@ -1,0 +1,76 @@
+﻿    1. ### Manual NFS SETUP
+
+#### Description
+Configuring NFS SERVER v4 for file sharing.(RED HAT 10 )
+
+#### Prerequisites
+Server and client architecture
+Installed required packages
+
+#### Procedure
+----SERVER SIDE PROCEDURE/SETUP
+Update the package list --- dnf update (sudo)
+
+Installing packages required---- dnf install nfs-utils -y
+
+Checking the version of the server -- 
+
+Start the server and check the status--- systemctl start nfs-server
+                                                                       --- systemctl status nfs-server
+                         			                ----systemctl enable –now nfs-server
+
+Configure and verify the exports file and insert the contents
+and files that are to be exported to the client using a drop-in file   -                             
+-----  vim /etc/exports.d/shared_directory.exports
+-----Inside the exports file specify -----
+
+    I. Files or directory to be shared
+    II. The target client ( ip address)
+    III. Permissions for the client
+Initialize the export services --- exportfs -r
+Create the directory that is specified in the previous step –--mkdir -pv /shared_directory_name
+
+Add files to be shared over nfs – cp ~/Document /shared_directory_name
+
+Allow firewall rules -- 
+firewall-cmd –add-service nfs 
+firewall-cmd –reload
+
+CLIENT-SIDE CONFIGURATION
+Install the nfs package ---- dnf  install nfs-utils
+
+Create a mountpoint  ----- mkdir -pv /mnt/directoryname
+
+mount the directory into the ------ vim   /etc/fstab
+                                                      
+Start the nfs service --- systemctl start 
+
+Confirm if you can access the server contents that are mounted ---- cd /mnt/directoryname
+
+
+
+
+
+
+
+ 
+
+
+
+                
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
